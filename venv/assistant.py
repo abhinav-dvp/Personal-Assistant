@@ -11,7 +11,7 @@ import requests
 import pyjokes
 from twilio.rest import Client
 
-
+# creation of functions which will be executed on bases of condition met
 def music(): 
         speak("Here you go with music")
         music_dir_input = input("Enter your directory")
@@ -121,12 +121,14 @@ def logoff():
     speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
     subprocess.call(["shutdown", "/l"])
 
-assname = "Hues 3.0"
+assname = "Hues 3.2" # 3.2 because it had 2 prototype before it and this same file was edited 2 times
 print(f'Loading your AI personal assistant - {assname}')
 
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
 engine.setProperty('voice','voices[0].id')
+
+# speak function by which the assitant speaks
 
 def speak(text):
     engine.say(text)
@@ -146,7 +148,7 @@ def wishMe():
         speak("Hello,Good Evening")
         speak(usrname)
         print("Hello,Good Evening",usrname)
-
+# takeCommand function in which the assistant listens to the user and takes in the inpiut
 def takeCommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
@@ -154,13 +156,15 @@ def takeCommand():
         audio=r.listen(source)
         try:
             statement=r.recognize_google(audio,language='en-in')
-            print(f"user said:{statement}\n")
+            print(f"user said:{statement}\n") # print what the user said
 
         except Exception as e:
             speak("Pardon me, please say that again")
             return "None"
         return statement
         
+# Starting up the assitant
+
 speak(f"Loading your AI personal assistant {assname}")
 speak("Please tell me what should I call you")
 statement = takeCommand().lower()   
@@ -179,7 +183,7 @@ if __name__=='__main__':
         statement = takeCommand().lower()
         if statement==0:
             continue
-        
+        # executing the functions based on conditions met
         if "good bye" in statement or "ok bye" in statement or "stop" in statement:
             speak(f'your personal assistant {assname} is shutting down,Good bye')
             print(f'your personal assistant {assname} is shutting down,Good bye')
